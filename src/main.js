@@ -31,7 +31,7 @@ searchForm.addEventListener('submit', async (e) => {
   }
 
   page = 1;
-  clearGallery();
+  gallery.innerHTML = '';
   toggleLoader(true);
   loadMoreButton.classList.add('hidden');
 
@@ -40,7 +40,6 @@ searchForm.addEventListener('submit', async (e) => {
     totalHits = data.totalHits;
 
     renderImages(data.hits);
-    lightbox.refresh();
 
     if (page * perPage < totalHits) {
       loadMoreButton.classList.remove('hidden');
@@ -62,7 +61,6 @@ loadMoreButton.addEventListener('click', async () => {
     const data = await fetchImages(query, page, perPage);
 
     renderImages(data.hits);
-    lightbox.refresh();
 
     if (page * perPage >= totalHits) {
       loadMoreButton.classList.add('hidden');
