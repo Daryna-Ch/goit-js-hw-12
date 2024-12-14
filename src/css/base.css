@@ -22,11 +22,96 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   margin: 0;
+  font-family: 'Arial', sans-serif;
+  color: darkgreen;
+  background-color: #f9f9f9;
+  padding: 0;
 }
 
 main {
   flex-grow: 1;
 }
-main:has(.back-link) {
-  text-align: center;
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+h1,
+h2,
+h3 {
+  font-family: 'Georgia', serif;
+  color: darkgreen;
+}
+
+form {
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  justify-content: space-between;
+}
+
+.gallery-item {
+  flex: 0 1 calc(25% - 16px);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #d3d3d3;
+  border-radius: 2px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+button.hidden {
+  display: none;
+}
+
+button {
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  background-color: darkgreen;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #006400;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .gallery-item {
+    flex: 0 1 calc(50% - 16px);
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+    flex: 0 1 100%;
+  }
 }
