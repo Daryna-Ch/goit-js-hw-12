@@ -2,12 +2,14 @@ import { fetchImages } from './js/pixabay-api.js';
 import { renderImages, clearGallery } from './js/render-function.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import SimpleLightbox from 'simple-lightbox';
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const gallery = document.getElementById('gallery');
 const loader = document.getElementById('loader');
 const loadMoreButton = document.createElement('button');
+let lightbox = new SimpleLightbox('.gallery a');
 
 let query = '';
 let page = 1;
@@ -37,6 +39,7 @@ searchForm.addEventListener('submit', async (e) => {
     totalHits = data.totalHits;
 
     renderImages(data.hits);
+    lightbox.refresh();
 
     if (page * perPage < totalHits) {
       loadMoreButton.classList.remove('hidden');
@@ -58,6 +61,7 @@ loadMoreButton.addEventListener('click', async () => {
     const data = await fetchImages(query, page, perPage);
 
     renderImages(data.hits);
+    lightbox.refresh();
 
     if (page * perPage >= totalHits) {
       loadMoreButton.classList.add('hidden');
