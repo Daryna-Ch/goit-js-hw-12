@@ -61,6 +61,7 @@ loadMoreButton.addEventListener('click', async () => {
     const data = await fetchImages(query, page, perPage);
 
     renderImages(data.hits);
+    lightbox.refresh();
 
     if (page * perPage >= totalHits) {
       loadMoreButton.classList.add('hidden');
