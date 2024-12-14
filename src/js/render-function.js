@@ -21,9 +21,7 @@ export function renderImages(images) {
         </li>`
     )
     .join('');
-  gallery.innerHTML = markup;
-
-  lightbox.refresh();
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
 
 export function clearGallery() {
