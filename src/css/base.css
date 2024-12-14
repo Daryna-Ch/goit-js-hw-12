@@ -63,7 +63,7 @@ form {
 }
 
 .gallery-item {
-  flex: 0 1 calc(25% - 16px);
+  flex: 0 1 calc(33.33% - 16px);
   position: relative;
   overflow: hidden;
   border: 2px solid #d3d3d3;
