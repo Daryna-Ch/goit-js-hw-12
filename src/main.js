@@ -63,6 +63,8 @@ loadMoreButton.addEventListener('click', async () => {
     renderImages(data.hits);
     lightbox.refresh();
 
+    smoothScroll();
+
     if (page * perPage >= totalHits) {
       loadMoreButton.classList.add('hidden');
       showEndOfCollectionMessage();
@@ -87,7 +89,7 @@ function showEndOfCollectionMessage() {
 function smoothScroll() {
   const firstChild = gallery.firstElementChild;
   if (!firstChild) return;
-  
+
   const { height: cardHeight } = gallery.firstElementChild.getBoundingClientRect();
   window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
 }
