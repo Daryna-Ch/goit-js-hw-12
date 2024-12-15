@@ -85,6 +85,9 @@ function showEndOfCollectionMessage() {
 }
 
 function smoothScroll() {
+  const firstChild = gallery.firstElementChild;
+  if (!firstChild) return;
+  
   const { height: cardHeight } = gallery.firstElementChild.getBoundingClientRect();
   window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
 }
