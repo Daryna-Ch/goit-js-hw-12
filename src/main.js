@@ -40,6 +40,7 @@ searchForm.addEventListener('submit', async (e) => {
     totalHits = data.totalHits;
 
     renderImages(data.hits);
+    lightbox.refresh();
 
     if (page * perPage < totalHits) {
       loadMoreButton.classList.remove('hidden');
@@ -56,12 +57,12 @@ searchForm.addEventListener('submit', async (e) => {
 loadMoreButton.addEventListener('click', async () => {
   page += 1;
   toggleLoader(true);
+  loadMoreButton.classList.add('hidden');
 
   try {
     const data = await fetchImages(query, page, perPage);
 
     renderImages(data.hits);
-    lightbox.refresh();
 
     smoothScroll();
 
@@ -69,7 +70,7 @@ loadMoreButton.addEventListener('click', async () => {
       loadMoreButton.classList.add('hidden');
       showEndOfCollectionMessage();
     } else {
-      smoothScroll();
+      loadMoreButton.classList.remove('hidden');
     }
   } catch (error) {
     iziToast.error({ title: 'Error', message: error.message });
