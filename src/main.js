@@ -60,6 +60,9 @@ loadMoreButton.addEventListener('click', async () => {
   loadMoreButton.classList.add('hidden');
 
   try {
+
+    await new Promise(resolve => setTimeout(resolve, 5000));
+
     const data = await fetchImages(query, page, perPage);
 
     renderImages(data.hits);
