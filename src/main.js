@@ -10,6 +10,7 @@ const searchInput = document.getElementById('search-input');
 const gallery = document.getElementById('gallery');
 const loader = document.getElementById('loader');
 const loadMoreButton = document.createElement('button');
+const moreLoader = document.getElementById('moreButton');
 let lightbox = new SimpleLightbox('.gallery a');
 
 let query = '';
@@ -34,6 +35,7 @@ searchForm.addEventListener('submit', async (e) => {
   gallery.innerHTML = '';
   toggleLoader(true);
   loadMoreButton.classList.add('hidden');
+  moreLoader.classList.add('hidden');
 
   try {
     const data = await fetchImages(query, page, perPage);
@@ -56,34 +58,36 @@ searchForm.addEventListener('submit', async (e) => {
 
 loadMoreButton.addEventListener('click', async () => {
   page += 1;
-  toggleLoader(true);
-  loadMoreButton.classList.add('hidden');
+  toggleLoader(true, 'more');
 
   try {
-
-    await new Promise(resolve => setTimeout(resolve, 5000));
-
     const data = await fetchImages(query, page, perPage);
 
     renderImages(data.hits);
+    lightbox.refresh();
 
     smoothScroll();
 
     if (page * perPage >= totalHits) {
       loadMoreButton.classList.add('hidden');
+      moreLoader.classList.add('hidden');
       showEndOfCollectionMessage();
     } else {
-      loadMoreButton.classList.remove('hidden');
+      toggleLoader(false, 'more'); 
     }
   } catch (error) {
     iziToast.error({ title: 'Error', message: error.message });
-  } finally {
-    toggleLoader(false);
+    toggleLoader(false, 'more');
   }
 });
 
-function toggleLoader(show) {
-  loader.classList.toggle('hidden', !show);
+function toggleLoader(show, type = 'main') {
+  if (type === 'main') {
+    loader.classList.toggle('hidden', !show);
+  } else if (type === 'more') {
+    moreLoader.classList.toggle('hidden', !show);
+    loadMoreButton.classList.toggle('hidden', show);
+  }
 }
 
 function showEndOfCollectionMessage() {
